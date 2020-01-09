@@ -46,7 +46,7 @@ public class AddActivity extends AppCompatActivity {
     Button postSubmitButton;
 
 
-    Location location = new Location(0.0,0.0);
+    Location location = new Location(15.61290748629416,73.7385424253531);
     String text;
     Bitmap bitmap;
 
