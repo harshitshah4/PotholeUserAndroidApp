@@ -13,7 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +26,7 @@ import com.example.potholeuserandroidapp.Interfaces.PostApi;
 import com.example.potholeuserandroidapp.Models.Post;
 import com.example.potholeuserandroidapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -35,15 +39,18 @@ import retrofit2.Retrofit;
  */
 public class HomeFragment extends Fragment {
 
+    int filter = 0;
     int pageno = 0;
 
     private Context context;
 
+    private Spinner postsFilterSpinner;
     private RecyclerView postsRecyclerView;
 
     private List<Post> postList;
 
     private ProgressBar postsRecyclerViewProgressBar;
+    final List<String> list = new ArrayList<String>();
 
     private TextView postsEmptyTextView;
     public HomeFragment() {
@@ -65,6 +72,7 @@ public class HomeFragment extends Fragment {
 
         context = getContext();
 
+        postsFilterSpinner = view.findViewById(R.id.postsfilterspinnerid);
         postsRecyclerView = view.findViewById(R.id.postsrecyclerviewid);
 
         postsRecyclerView.setHasFixedSize(true);
@@ -72,13 +80,44 @@ public class HomeFragment extends Fragment {
 
         postsRecyclerViewProgressBar = view.findViewById(R.id.postsrecyclerviewprogressbarid);
 
+
+        list.add("All");
+        list.add("Processing");
+        list.add("Assigned");
+        list.add("Resolved");
+        list.add("Rejected");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(context,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        postsFilterSpinner.setAdapter(dataAdapter);
+
+        postsFilterSpinner.setSelection(filter);
+
+        postsFilterSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                filter = position;
+                postsFilterSpinner.setSelection(filter);
+                getPosts();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
+    private void getPosts(){
         postsRecyclerViewProgressBar.setVisibility(View.VISIBLE);
 
         Retrofit retrofit = NetworkHelper.getRetrofitInstance(context);
 
         PostApi postApi = retrofit.create(PostApi.class);
 
-        Call<List<Post>> postsCall = postApi.getPosts(pageno);
+        Call<List<Post>> postsCall = postApi.getPosts(pageno,list.get(filter));
 
         postsCall.enqueue(new Callback<List<Post>>() {
             @Override
@@ -95,7 +134,7 @@ public class HomeFragment extends Fragment {
 
                             postsRecyclerView.setAdapter(new PostsRecyclerViewAdapter(context,postList));
                         }else{
-
+                            Toast.makeText(context, "No posts here", Toast.LENGTH_SHORT).show();
                         }
                     }else{
 
@@ -117,5 +156,14 @@ public class HomeFragment extends Fragment {
         });
 
 
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getPosts();
     }
 }

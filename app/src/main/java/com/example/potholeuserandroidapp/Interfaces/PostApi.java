@@ -27,7 +27,7 @@ public interface PostApi {
     Call<Post> getPost(@Query("pid") String pid);
 
     @GET("post/posts")
-    Call<List<Post>> getPosts(@Query("pageno") int pageno);
+    Call<List<Post>> getPosts(@Query("pageno") int pageno,@Query("status") String status);
 
     @GET("post/status")
     Call<List<Status>> getStatus(@Query("pid") String pid);

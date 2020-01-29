@@ -11,12 +11,24 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         />
-
-    <!-- TODO: Update blank fragment layout -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/postsrecyclerviewid"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <Spinner
+            android:id="@+id/postsfilterspinnerid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/postsrecyclerviewid"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </LinearLayout>
+    <!-- TODO: Update blank fragment layout -->
 
     <TextView
         android:id="@+id/postsemptytextviewid"

@@ -57,7 +57,7 @@ public class AddActivity extends AppCompatActivity {
     Button postSubmitButton;
 
 
-    Location location = new Location("Current Location","",15.61290748629416,73.7385424253531);
+    Location location = new Location("Current Location","",15.630331236651088,73.80059286624835);
     String text;
     Bitmap bitmap;
 
@@ -168,6 +168,7 @@ public class AddActivity extends AppCompatActivity {
 
                     Toast.makeText(AddActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
                     //postUploadProgressBar.setVisibility(View.GONE);
+                    startActivity(new Intent(AddActivity.this,HomeActivity.class));
 
                 }else{
                     postSubmitButton.setEnabled(true);
