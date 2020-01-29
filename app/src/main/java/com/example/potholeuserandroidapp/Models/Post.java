@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class Post {
 
+
+    @SerializedName("pid")
+    String pid;
     @SerializedName("text")
     String text;
     @SerializedName("image")
@@ -21,6 +24,14 @@ public class Post {
         this.text = text;
         this.image = image;
         this.location = location;
+    }
+
+    public String getPid() {
+        return pid;
+    }
+
+    public void setPid(String pid) {
+        this.pid = pid;
     }
 
     public String getText() {

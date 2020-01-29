@@ -3,6 +3,7 @@ package com.example.potholeuserandroidapp.Helpers;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Environment;
+import android.widget.Toast;
 
 import com.example.potholeuserandroidapp.Interfaces.PostApi;
 import com.example.potholeuserandroidapp.Models.Field;
@@ -22,7 +23,7 @@ import retrofit2.Retrofit;
 
 public class MediaUploader {
 
-    public static void uploadMedia(Context context , Bitmap bitmap , final MediaUploaderListener mediaUploaderListener){
+    public static void uploadMedia(final Context context , Bitmap bitmap , final MediaUploaderListener mediaUploaderListener){
 
         Retrofit retrofit = NetworkHelper.getRetrofitInstance(context);
 
@@ -56,6 +57,7 @@ public class MediaUploader {
                                 mediaUploaderListener.onSuccess(image);
 
                             }else{
+                                Toast.makeText(context, "0:", Toast.LENGTH_SHORT).show();
                                 mediaUploaderListener.onFailure();
                             }
 
@@ -63,6 +65,7 @@ public class MediaUploader {
 
                         @Override
                         public void onFailure(Call<String> call, Throwable t) {
+                            Toast.makeText(context, "1:"+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             mediaUploaderListener.onFailure();
                         }
                     });
@@ -71,6 +74,7 @@ public class MediaUploader {
 
 
                 }else{
+                    Toast.makeText(context, "7:", Toast.LENGTH_SHORT).show();
                     mediaUploaderListener.onFailure();
                 }
 
@@ -79,6 +83,7 @@ public class MediaUploader {
 
             @Override
             public void onFailure(Call<Signed> call, Throwable t) {
+                Toast.makeText(context, "3:"+t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 mediaUploaderListener.onFailure();
             }
         });

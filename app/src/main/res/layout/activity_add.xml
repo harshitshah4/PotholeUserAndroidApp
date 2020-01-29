@@ -33,17 +33,29 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/addpostlocationbuttonid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:text="Current Location"
-        android:drawableLeft="@drawable/ic_edit_location_black_24dp"
-        android:background="@android:color/transparent"
+        <Button
+            android:id="@+id/addpostlocationbuttonid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="Current Location"
+            android:drawableLeft="@drawable/ic_edit_location_black_24dp"
+            android:background="@android:color/transparent"
 
-        />
+            />
+
+        <EditText
+            android:id="@+id/addpostlocationdescriptionid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Enter Location Description"
+            />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"

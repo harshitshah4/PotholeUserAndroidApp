@@ -12,9 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.potholeuserandroidapp.Activities.HomeActivity;
+import com.example.potholeuserandroidapp.Fragments.StatusListDialogFragment;
 import com.example.potholeuserandroidapp.Models.Post;
 import com.example.potholeuserandroidapp.R;
 
@@ -51,6 +55,16 @@ public class PostsRecyclerViewAdapter extends RecyclerView.Adapter<PostsRecycler
         }
 
 
+    holder.postViewStatusesButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FragmentManager fragmentManager = ((HomeActivity) context).getSupportFragmentManager();
+
+            StatusListDialogFragment caseListDialogFragment = new StatusListDialogFragment(post.getPid());
+
+            caseListDialogFragment.show(fragmentManager,"statuslistdialog");
+        }
+    });
 
         holder.postLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,22 +92,45 @@ public class PostsRecyclerViewAdapter extends RecyclerView.Adapter<PostsRecycler
             holder.postLocationTextView.setText(post.getLocation().getDescription());
         }
 
+        if(post.getLocation().getDescription()!=null){
+            holder.postLocationTextView.setText(post.getLocation().getDescription());
+        }
 
-        if(post.getStatus()!=null && post.getStatus().getStatus()!=null){
 
-            if(post.getStatus().getStatus().equals("Resolved")){
-                holder.postViewProofButton.setEnabled(true);
-                holder.postViewProofButton.setVisibility(View.VISIBLE);
+        if(post.getStatus()!=null){
 
+            if(post.getStatus().getStatus()!=null){
+                holder.postStatusTextView.setVisibility(View.VISIBLE);
+                if(post.getStatus().getStatus().equals("Resolved")){
+                    holder.postViewProofButton.setEnabled(true);
+                    holder.postViewProofButton.setVisibility(View.VISIBLE);
+
+                }else{
+                    holder.postViewProofButton.setEnabled(false);
+                    holder.postViewProofButton.setVisibility(View.GONE);
+                }
+                holder.postStatusTextView.setText(post.getStatus().getStatus());
             }else{
-                holder.postViewProofButton.setEnabled(false);
-                holder.postViewProofButton.setVisibility(View.GONE);
+                holder.postStatusTextView.setVisibility(View.GONE);
+            }
+
+            if(post.getStatus().getMessage()!=null){
+                holder.postStatusMessageTextView.setVisibility(View.VISIBLE);
+                holder.postStatusMessageTextView.setText(post.getStatus().getMessage());
+            }else{
+                holder.postStatusMessageTextView.setVisibility(View.GONE);
+            }
+
+            if(post.getStatus().getTimestamp()>0){
+                holder.postStatusTimeStampTextView.setVisibility(View.VISIBLE);
+                holder.postStatusTimeStampTextView.setText(String.valueOf(post.getStatus().getTimestamp()));
+            }else{
+                holder.postStatusTimeStampTextView.setVisibility(View.GONE);
             }
 
 
-            holder.postStatusTextView.setText(post.getStatus().getStatus());
-
         }
+
 
         holder.postTimeStampTextView.setText(Long.toString(post.getTimestamp()));
 
@@ -123,6 +160,9 @@ public class PostsRecyclerViewAdapter extends RecyclerView.Adapter<PostsRecycler
         TextView postLocationTextView;
 
         TextView postStatusTextView;
+        TextView postStatusMessageTextView;
+        TextView postStatusTimeStampTextView;
+
         Button postViewProofButton;
 
         TextView postTimeStampTextView;
@@ -140,6 +180,11 @@ public class PostsRecyclerViewAdapter extends RecyclerView.Adapter<PostsRecycler
 
 
             postStatusTextView = itemView.findViewById(R.id.poststatustextviewid);
+            postStatusMessageTextView = itemView.findViewById(R.id.poststatusmessagetextviewid);
+            postStatusTimeStampTextView = itemView.findViewById(R.id.poststatustimestamptextviewid);
+
+
+
             postViewProofButton = itemView.findViewById(R.id.postviewproofbuttonid);
 
             postTimeStampTextView = itemView.findViewById(R.id.posttimestamptextviewid);

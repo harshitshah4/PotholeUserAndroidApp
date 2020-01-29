@@ -3,6 +3,7 @@ package com.example.potholeuserandroidapp.Interfaces;
 import com.example.potholeuserandroidapp.Models.Post;
 import com.example.potholeuserandroidapp.Models.ResponseBody;
 import com.example.potholeuserandroidapp.Models.Signed;
+import com.example.potholeuserandroidapp.Models.Status;
 
 import java.util.List;
 
@@ -27,6 +28,9 @@ public interface PostApi {
 
     @GET("post/posts")
     Call<List<Post>> getPosts(@Query("pageno") int pageno);
+
+    @GET("post/status")
+    Call<List<Status>> getStatus(@Query("pid") String pid);
 
     @GET("post/upload")
     Call<Signed> getSignedUpload(@Query("filename") String filename);

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,8 +24,17 @@ import com.example.potholeuserandroidapp.Models.Post;
 import com.example.potholeuserandroidapp.Models.ResponseBody;
 import com.example.potholeuserandroidapp.Models.Signed;
 import com.example.potholeuserandroidapp.R;
+import com.google.android.gms.common.api.Status;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.AutocompleteActivity;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -40,26 +50,38 @@ public class AddActivity extends AppCompatActivity {
     Button postImageButton;
 
     Button postLocationButton;
+    EditText postLocationDescription;
 
     ImageView postImageView;
 
     Button postSubmitButton;
 
 
-    Location location = new Location(15.61290748629416,73.7385424253531);
+    Location location = new Location("Current Location","",15.61290748629416,73.7385424253531);
     String text;
     Bitmap bitmap;
+
+    int AUTOCOMPLETE_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        String apiKey = "AIzaSyCH5Esn42epQB4jI98DMS7IukVt5ZPKGBE";
+
+        Places.initialize(getApplicationContext(), apiKey);
+
+// Create a new Places client instance
+        PlacesClient placesClient = Places.createClient(this);
+
         postEditText = findViewById(R.id.addpostedittextid);
 
         postImageButton = findViewById(R.id.addpostimagebuttonid);
 
         postLocationButton = findViewById(R.id.addpostlocationbuttonid);
+
+        postLocationDescription = findViewById(R.id.addpostlocationdescriptionid);
 
         postImageView = findViewById(R.id.addpostimageviewid);
 
@@ -79,6 +101,7 @@ public class AddActivity extends AppCompatActivity {
                     MediaUploader.uploadMedia(AddActivity.this , bitmap, new MediaUploader.MediaUploaderListener() {
                         @Override
                         public void onSuccess(String image) {
+                            location.setDescription(postLocationDescription.getText().toString());
                             Post post = new Post(text,image,location);
                             uploadPost(post);
                         }
@@ -87,7 +110,7 @@ public class AddActivity extends AppCompatActivity {
                         public void onFailure() {
 
                             postSubmitButton.setEnabled(true);
-                            Toast.makeText(AddActivity.this, "Something Went Wrong", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(AddActivity.this, "HERE:Something Went Wrong", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -105,6 +128,14 @@ public class AddActivity extends AppCompatActivity {
         postLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG);
+
+                Intent intent = new Autocomplete.IntentBuilder(
+                        AutocompleteActivityMode.FULLSCREEN, fields)
+                        .build(AddActivity.this);
+                startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
 
             }
         });
@@ -169,7 +200,23 @@ public class AddActivity extends AppCompatActivity {
             }
 
 
+        }else if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+                location.setTitle(place.getName());
+                location.setLatitude(place.getLatLng().latitude);
+                location.setLongitude(place.getLatLng().longitude);
+                postLocationButton.setText(location.getTitle());
+                Log.i("TESTING", "Place: " + place.getName() + ", " + place.getId());
+            } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
+                // TODO: Handle the error.
+                Status status = Autocomplete.getStatusFromIntent(data);
+                Log.i("TESTING", status.getStatusMessage());
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
         }
+
 
     }
 

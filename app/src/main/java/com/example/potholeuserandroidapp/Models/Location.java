@@ -4,6 +4,8 @@ import com.google.gson.annotations.SerializedName;
 
 public class Location {
 
+    @SerializedName("title")
+    String title;
     @SerializedName("description")
     String description;
     @SerializedName("latitude")
@@ -16,10 +18,19 @@ public class Location {
         this.longitude = longitude;
     }
 
-    public Location(String name, double latitude, double longitude) {
+    public Location(String title,String description, double latitude, double longitude) {
+        this.title = title;
         this.description = description;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
