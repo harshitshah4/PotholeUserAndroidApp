@@ -1,5 +1,6 @@
 package com.example.potholeuserandroidapp.Interfaces;
 
+import com.example.potholeuserandroidapp.Models.Location;
 import com.example.potholeuserandroidapp.Models.Post;
 import com.example.potholeuserandroidapp.Models.ResponseBody;
 import com.example.potholeuserandroidapp.Models.Signed;
@@ -22,6 +23,10 @@ public interface PostApi {
 
     @POST("post")
     Call<ResponseBody> addPost(@Body Post post);
+
+    @POST("post/auto_detect")
+    Call<ResponseBody> addAutoDetectedPost(@Body Location location);
+
 
     @GET("post")
     Call<Post> getPost(@Query("pid") String pid);

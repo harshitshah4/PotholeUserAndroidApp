@@ -13,7 +13,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkHelper {
 
-    private static final String BASE_URL = "https://3bce2ca9.ngrok.io/";
+    private static final String BASE_URL = "http://potholeuserserver-env.qauwqpt8az.ap-south-1.elasticbeanstalk.com/";
+
+
 
     public static Retrofit getRetrofitInstance(Context context){
 
