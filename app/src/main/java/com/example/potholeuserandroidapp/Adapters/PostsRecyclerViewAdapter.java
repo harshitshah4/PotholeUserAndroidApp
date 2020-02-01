@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,26 +48,26 @@ public class PostsRecyclerViewAdapter extends RecyclerView.Adapter<PostsRecycler
         final Post post = postList.get(position);
 
         if(post.getLocation()!=null && post.getLocation().getLongitude()>0 && post.getLocation().getLatitude()>0){
-            holder.postLocationButton.setEnabled(true);
-            holder.postLocationButton.setVisibility(View.VISIBLE);
+            holder.postLocationImageButton.setEnabled(true);
+            holder.postLocationImageButton.setVisibility(View.VISIBLE);
         }else{
-            holder.postLocationButton.setEnabled(false);
-            holder.postLocationButton.setVisibility(View.GONE);
+            holder.postLocationImageButton.setEnabled(false);
+            holder.postLocationImageButton.setVisibility(View.GONE);
         }
 
 
-    holder.postViewStatusesButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FragmentManager fragmentManager = ((HomeActivity) context).getSupportFragmentManager();
+//    holder.postViewStatusesButton.setOnClickListener(new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            FragmentManager fragmentManager = ((HomeActivity) context).getSupportFragmentManager();
+//
+//            StatusListDialogFragment caseListDialogFragment = new StatusListDialogFragment(post.getPid());
+//
+//            caseListDialogFragment.show(fragmentManager,"statuslistdialog");
+//        }
+//    });
 
-            StatusListDialogFragment caseListDialogFragment = new StatusListDialogFragment(post.getPid());
-
-            caseListDialogFragment.show(fragmentManager,"statuslistdialog");
-        }
-    });
-
-        holder.postLocationButton.setOnClickListener(new View.OnClickListener() {
+        holder.postLocationImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -97,42 +98,76 @@ public class PostsRecyclerViewAdapter extends RecyclerView.Adapter<PostsRecycler
         }
 
 
-        if(post.getStatus()!=null){
+        if(post.getStatus()!=null) {
 
-            if(post.getStatus().getStatus()!=null){
+            if (post.getStatus().getStatus() != null) {
                 holder.postStatusTextView.setVisibility(View.VISIBLE);
-                if(post.getStatus().getStatus().equals("Resolved")){
-                    holder.postViewProofButton.setEnabled(true);
-                    holder.postViewProofButton.setVisibility(View.VISIBLE);
-
-                }else{
-                    holder.postViewProofButton.setEnabled(false);
-                    holder.postViewProofButton.setVisibility(View.GONE);
-                }
                 holder.postStatusTextView.setText(post.getStatus().getStatus());
-            }else{
+
+                switch (post.getStatus().getStatus()){
+                    case "Processing":
+                        holder.postStatusTextView.setTextColor(context.getResources().getColor(R.color.processing));
+                        holder.postStatusTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_radio_button_unchecked_black_24dp,0,0,0);
+                        break;
+                    case "Resolved":
+                        holder.postStatusTextView.setTextColor(context.getResources().getColor(R.color.resolved));
+                        holder.postStatusTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_done_black_24dp,0,0,0);
+                        break;
+                    case "Assigned":
+                        holder.postStatusTextView.setTextColor(context.getResources().getColor(R.color.assigned));
+                        holder.postStatusTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_person_outline_black_24dp,0,0,0);
+                        break;
+                    case "Rejected":
+                        holder.postStatusTextView.setTextColor(context.getResources().getColor(R.color.rejected));
+                        holder.postStatusTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_info_outline_black_24dp,0,0,0);
+                        break;
+
+                }
+
+            } else {
                 holder.postStatusTextView.setVisibility(View.GONE);
-            }
-
-            if(post.getStatus().getMessage()!=null){
-                holder.postStatusMessageTextView.setVisibility(View.VISIBLE);
-                holder.postStatusMessageTextView.setText(post.getStatus().getMessage());
-            }else{
-                holder.postStatusMessageTextView.setVisibility(View.GONE);
-            }
-
-            if(post.getStatus().getTimestamp()>0){
-                holder.postStatusTimeStampTextView.setVisibility(View.VISIBLE);
-                holder.postStatusTimeStampTextView.setText(String.valueOf(post.getStatus().getTimestamp()));
-            }else{
-                holder.postStatusTimeStampTextView.setVisibility(View.GONE);
             }
 
 
         }
 
 
-        holder.postTimeStampTextView.setText(Long.toString(post.getTimestamp()));
+//        if(post.getStatus()!=null){
+//
+//            if(post.getStatus().getStatus()!=null){
+//                holder.postStatusTextView.setVisibility(View.VISIBLE);
+//                if(post.getStatus().getStatus().equals("Resolved")){
+//                    holder.postViewProofButton.setEnabled(true);
+//                    holder.postViewProofButton.setVisibility(View.VISIBLE);
+//
+//                }else{
+//                    holder.postViewProofButton.setEnabled(false);
+//                    holder.postViewProofButton.setVisibility(View.GONE);
+//                }
+//                holder.postStatusTextView.setText(post.getStatus().getStatus());
+//            }else{
+//                holder.postStatusTextView.setVisibility(View.GONE);
+//            }
+//
+//            if(post.getStatus().getMessage()!=null){
+//                holder.postStatusMessageTextView.setVisibility(View.VISIBLE);
+//                holder.postStatusMessageTextView.setText(post.getStatus().getMessage());
+//            }else{
+//                holder.postStatusMessageTextView.setVisibility(View.GONE);
+//            }
+//
+//            if(post.getStatus().getTimestamp()>0){
+//                holder.postStatusTimeStampTextView.setVisibility(View.VISIBLE);
+//                holder.postStatusTimeStampTextView.setText(String.valueOf(post.getStatus().getTimestamp()));
+//            }else{
+//                holder.postStatusTimeStampTextView.setVisibility(View.GONE);
+//            }
+
+
+//        }
+
+
+//        holder.postTimeStampTextView.setText(Long.toString(post.getTimestamp()));
 
         if(post.getText()!=null){
             holder.postTextView.setText(post.getText());
@@ -156,18 +191,18 @@ public class PostsRecyclerViewAdapter extends RecyclerView.Adapter<PostsRecycler
 
         ImageView postImageView;
         TextView postTextView;
-        Button postLocationButton;
+        ImageButton postLocationImageButton;
         TextView postLocationTextView;
 
         TextView postStatusTextView;
-        TextView postStatusMessageTextView;
-        TextView postStatusTimeStampTextView;
-
-        Button postViewProofButton;
-
-        TextView postTimeStampTextView;
-
-        Button postViewStatusesButton;
+//        TextView postStatusMessageTextView;
+//        TextView postStatusTimeStampTextView;
+//
+//        Button postViewProofButton;
+//
+//        TextView postTimeStampTextView;
+//
+//        Button postViewStatusesButton;
 
         PostsRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -175,21 +210,21 @@ public class PostsRecyclerViewAdapter extends RecyclerView.Adapter<PostsRecycler
 
             postImageView = itemView.findViewById(R.id.postimageimageviewid);
             postTextView = itemView.findViewById(R.id.posttexttextviewid);
-            postLocationButton = itemView.findViewById(R.id.postlocationbuttonid);
+            postLocationImageButton = itemView.findViewById(R.id.postlocationimagebuttonid);
             postLocationTextView = itemView.findViewById(R.id.postlocationtextviewid);
 
 
             postStatusTextView = itemView.findViewById(R.id.poststatustextviewid);
-            postStatusMessageTextView = itemView.findViewById(R.id.poststatusmessagetextviewid);
-            postStatusTimeStampTextView = itemView.findViewById(R.id.poststatustimestamptextviewid);
+//            postStatusMessageTextView = itemView.findViewById(R.id.poststatusmessagetextviewid);
+//            postStatusTimeStampTextView = itemView.findViewById(R.id.poststatustimestamptextviewid);
 
 
 
-            postViewProofButton = itemView.findViewById(R.id.postviewproofbuttonid);
-
-            postTimeStampTextView = itemView.findViewById(R.id.posttimestamptextviewid);
-
-            postViewStatusesButton = itemView.findViewById(R.id.postviewstatusesbuttonid);
+//            postViewProofButton = itemView.findViewById(R.id.postviewproofbuttonid);
+//
+//            postTimeStampTextView = itemView.findViewById(R.id.posttimestamptextviewid);
+//
+//            postViewStatusesButton = itemView.findViewById(R.id.postviewstatusesbuttonid);
         }
     }
 

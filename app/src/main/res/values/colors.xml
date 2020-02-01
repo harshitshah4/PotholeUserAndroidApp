@@ -3,4 +3,8 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="processing">#FF8800</color>
+    <color name="rejected">#FF0000</color>
+    <color name="resolved">#00FF00</color>
+    <color name="assigned">#4A89F3</color>
 </resources>

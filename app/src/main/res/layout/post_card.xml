@@ -1,67 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="500dp"
-    >
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:cardUseCompatPadding="true"
-        android:layout_weight="3.5"
-        >
+<androidx.cardview.widget.CardView android:layout_width="match_parent"
+    android:layout_height="150dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardUseCompatPadding="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             >
 
             <ImageView
                 android:id="@+id/postimageimageviewid"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="3"
-                android:background="@android:color/darker_gray"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
                 />
 
-            <TextView
-                android:id="@+id/posttexttextviewid"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:textSize="25sp"
-                tools:text="Text"
-                />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
                 >
 
-
-                <Button
-                    android:id="@+id/postlocationbuttonid"
-                    android:layout_width="0dp"
+                <TextView
+                    android:id="@+id/poststatustextviewid"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="15sp"
-                    android:text="Directions"
+                    android:textSize="20sp"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:drawableLeft="@drawable/ic_info_outline_black_24dp"
+                    android:layout_gravity="right"
+                    tools:text="Status"
+
                     />
 
 
+                <TextView
+                    android:id="@+id/posttexttextviewid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    tools:text="Text"
+                    />
+
+
+                <ImageButton
+                    android:id="@+id/postlocationimagebuttonid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:layout_gravity="bottom"
+                    android:text="Directions"
+                    android:src="@drawable/ic_near_me_black_24dp"
+                    android:background="@android:color/transparent"
+                    />
 
 
                 <TextView
                     android:id="@+id/postlocationtextviewid"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:textSize="15sp"
                     tools:text="Location Description"
                     />
@@ -75,88 +82,8 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
 
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1.5"
-        android:orientation="vertical"
-        >
+</androidx.cardview.widget.CardView>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            >
-
-
-            <TextView
-                android:id="@+id/poststatustextviewid"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                tools:text="Status"
-                />
-
-
-
-            <Button
-                android:id="@+id/postviewproofbuttonid"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="15sp"
-                android:text="View Proof"
-                />
-
-
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/poststatusmessagetextviewid"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:textSize="15sp"
-            tools:text="Message"
-            />
-
-        <TextView
-            android:id="@+id/poststatustimestamptextviewid"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:textSize="15sp"
-            tools:text="TimeStamp"
-            />
-
-
-        <TextView
-            android:id="@+id/posttimestamptextviewid"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:textSize="15sp"
-            tools:text="Status"
-            />
-
-        <Button
-            android:id="@+id/postviewstatusesbuttonid"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:text="View Statuses"
-            />
-
-
-    </LinearLayout>
-
-
-
-</LinearLayout>

@@ -164,6 +164,6 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        getPosts();
+//        getPosts();
     }
 }

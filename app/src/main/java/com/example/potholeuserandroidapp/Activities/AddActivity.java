@@ -2,17 +2,23 @@ package com.example.potholeuserandroidapp.Activities;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.potholeuserandroidapp.Helpers.MediaUploader;
@@ -33,6 +39,7 @@ import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,20 +53,23 @@ import retrofit2.Retrofit;
 
 public class AddActivity extends AppCompatActivity {
 
+    Toolbar addActivityToolbar;
+
     EditText postEditText;
-    Button postImageButton;
+    ImageButton postImageButton;
 
     Button postLocationButton;
     EditText postLocationDescription;
 
-    ImageView postImageView;
 
     Button postSubmitButton;
 
 
-    Location location = new Location("Current Location","",15.630331236651088,73.80059286624835);
+    Location location = new Location("Current Location","",15.620039499666017,73.74030561142318);
     String text;
     Bitmap bitmap;
+
+    ProgressBar addPostSubmitProgressBar;
 
     int AUTOCOMPLETE_REQUEST_CODE = 1;
 
@@ -67,6 +77,13 @@ public class AddActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
+
+        addActivityToolbar = findViewById(R.id.addactivitytoolbarid);
+
+        setSupportActionBar(addActivityToolbar);
+
+        getSupportActionBar().setTitle("Add Post");
+
 
         String apiKey = "AIzaSyCH5Esn42epQB4jI98DMS7IukVt5ZPKGBE";
 
@@ -83,7 +100,7 @@ public class AddActivity extends AppCompatActivity {
 
         postLocationDescription = findViewById(R.id.addpostlocationdescriptionid);
 
-        postImageView = findViewById(R.id.addpostimageviewid);
+        addPostSubmitProgressBar = findViewById(R.id.addpostsubmitprogressbarid);
 
         postSubmitButton = findViewById(R.id.addpostbuttonid);
 
@@ -93,10 +110,13 @@ public class AddActivity extends AppCompatActivity {
 
                 text = postEditText.getText().toString().trim();
 
-                postSubmitButton.setEnabled(false);
+
                 //postUploadProgressBar.setVisibility(View.VISIBLE);
 
                 if(bitmap!=null && text!=null){
+                    postSubmitButton.setEnabled(false);
+
+                    addPostSubmitProgressBar.setVisibility(View.VISIBLE);
 
                     MediaUploader.uploadMedia(AddActivity.this , bitmap, new MediaUploader.MediaUploaderListener() {
                         @Override
@@ -108,7 +128,7 @@ public class AddActivity extends AppCompatActivity {
 
                         @Override
                         public void onFailure() {
-
+                            addPostSubmitProgressBar.setVisibility(View.GONE);
                             postSubmitButton.setEnabled(true);
                             //Toast.makeText(AddActivity.this, "HERE:Something Went Wrong", Toast.LENGTH_SHORT).show();
                         }
@@ -144,8 +164,9 @@ public class AddActivity extends AppCompatActivity {
         postImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,0);
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, 12);
             }
         });
 
@@ -162,8 +183,10 @@ public class AddActivity extends AppCompatActivity {
         Call<ResponseBody> postCall = postApi.addPost(post);
 
         postCall.enqueue(new Callback<ResponseBody>() {
+
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                addPostSubmitProgressBar.setVisibility(View.GONE);
                 if(response.isSuccessful()){
 
                     Toast.makeText(AddActivity.this, "Uploaded", Toast.LENGTH_SHORT).show();
@@ -178,6 +201,7 @@ public class AddActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                addPostSubmitProgressBar.setVisibility(View.GONE);
                 postSubmitButton.setEnabled(true);
             }
         });
@@ -193,13 +217,17 @@ public class AddActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 0  && resultCode == Activity.RESULT_OK){
+        if(requestCode == 12  && resultCode == Activity.RESULT_OK){
 
-            if(data!=null && data.getExtras().get("data")!=null){
-                bitmap = (Bitmap) data.getExtras().get("data");
-                postImageView.setImageBitmap(bitmap);
+            Uri selectedImage = data.getData();
+
+            // method 1
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                postImageButton.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-
 
         }else if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
@@ -221,5 +249,12 @@ public class AddActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        startActivity(new Intent(AddActivity.this,HomeActivity.class));
+    }
 }
 
