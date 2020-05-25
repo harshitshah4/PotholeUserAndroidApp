@@ -1,6 +1,8 @@
 # PotholeUserAndroidApp
 This is repository for Pothole User Android app
 
+### **I highly suggest you to first read [Detail of Pothole App](https://github.com/harshitshah4/PotholeUserAndroidApp/blob/initial_commit/POTHOLE.md)**
+
 This is one of the components of a complete Pothole App 
 
 The complete understanding of Pothole app could be found over here []
