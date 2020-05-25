@@ -21,7 +21,8 @@ Our project provides set of two app : One App is for Civil Authority and the Oth
 5) Then Civil Authority filters all the Pothole and updates the status of the Pothole , status is also reflected to the user , and is notified too .
 
 ## Architecture
-
+![Architecure diagram of App](https://github.com/harshitshah4/PotholeUserAndroidApp/blob/initial_commit/Architecure.jpeg)
+ 
 #### Now we will go into technical details of the app 
 
 The app is hosted on AWS , and is architecutered in such a way that it could scale well , and could handle upto around millions of users.
@@ -63,3 +64,7 @@ The media files from AWS S3 are served via CloudFront CDN  , So that users may h
 > As you can see each component of the above architecture is higly scalable , secure and reliable , at each step JWT tokens and authentication are used to , and all the components are generally self sufficient so the arcitecture could be easily modified according to needs.
 
 Repo to components of the app:
+[Pothole User Android App](https://github.com/harshitshah4/PotholeUserAndroidApp)
+[Pothole User Server (Private)](https://github.com/harshitshah4/PotholeUserServer)
+[Pothole Civil Authority Android App](https://github.com/harshitshah4/PotholeCivilAuthorityAndroidApp)
+[Pothole Civil Authority Server (Private)](https://github.com/harshitshah4/PotholeCivilAuthorityServer)
