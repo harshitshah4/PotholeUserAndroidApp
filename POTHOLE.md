@@ -64,7 +64,7 @@ The media files from AWS S3 are served via CloudFront CDN  , So that users may h
 > As you can see each component of the above architecture is higly scalable , secure and reliable , at each step JWT tokens and authentication are used to , and all the components are generally self sufficient so the arcitecture could be easily modified according to needs.
 
 Repo to components of the app:
-[Pothole User Android App](https://github.com/harshitshah4/PotholeUserAndroidApp)
-[Pothole User Server (Private)](https://github.com/harshitshah4/PotholeUserServer)
-[Pothole Civil Authority Android App](https://github.com/harshitshah4/PotholeCivilAuthorityAndroidApp)
-[Pothole Civil Authority Server (Private)](https://github.com/harshitshah4/PotholeCivilAuthorityServer)
+- [Pothole User Android App](https://github.com/harshitshah4/PotholeUserAndroidApp)
+- [Pothole User Server (Private)](https://github.com/harshitshah4/PotholeUserServer)
+- [Pothole Civil Authority Android App](https://github.com/harshitshah4/PotholeCivilAuthorityAndroidApp)
+- [Pothole Civil Authority Server (Private)](https://github.com/harshitshah4/PotholeCivilAuthorityServer)
