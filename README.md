@@ -7,11 +7,11 @@ The complete understanding of Pothole app could be found over here []
 
 ### Links to other components : 
 
-Pothole User Server 
-Pothole Civil Authority Android App 
-Pothole Civil Authority Server
-
-Lambda 
+Repo to components of the app:
+- [Pothole User Android App (Current)](https://github.com/harshitshah4/PotholeUserAndroidApp)
+- [Pothole User Server (Private)](https://github.com/harshitshah4/PotholeUserServer)
+- [Pothole Civil Authority Android App](https://github.com/harshitshah4/PotholeCivilAuthorityAndroidApp)
+- [Pothole Civil Authority Server (Private)](https://github.com/harshitshah4/PotholeCivilAuthorityServer)
 
 This app is the frontend interface for User.
 
