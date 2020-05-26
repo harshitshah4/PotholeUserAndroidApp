@@ -7,11 +7,19 @@ Our aim of this project is to provide a solid and effective solution to the abov
 
 ## Solution
 
-Our project provides set of two app : One App is for Civil Authority and the Other App is for User . The civil authority app , as the name suggests is used by Government and Civil Agents to track , update and filter the Potholes,  while the User App is used by users / actors who reports the pothole . The detailed description about each of the app will be found in their's respective repositories.
+Our project provides set of two app : One App is for Civil Authority and the Other App is for User . The civil authority app , as the name suggests is used by Government and Civil Agents to track , update and filter the Potholes,  while the User App is used by users / actors who reports the pothole . The detailed description about each of the app will be found in their's respective repositories. The app also assigns a supervisor to each authority so that , they could monitor on the works of the authority.
+
+#### Wait there's more :
+
+The Governments are provided by the heatmaps , that uses Google HeatMap Api , it displays the areas with most potholes , the map is brighter over the region where more potholes are detected  , In this way Authorities could understand that which area suffers from more cases.  
+
+#### It still doesn't stop here :
+
+Daily a batch job, scheduled by CloudWatch and runned by AWS Lambda , queries through all the potholes , and notifies the authority via email when a particular Pothole has been not fixed for more than defined number of days, and Supervisor is also notified , so that appropriate actions could be taken .
 
 ## Flow 
 
-1) The User uploads the Pothole  , by filling fields such as image , description , location ( Or current location is taken )
+1) The User uploads the Pothole  , by filling fields such as image , description , location ( Or current location is taken ).
 2) The image is uploaed to storage AWS S3 and other data is uploaded to database along with pointer to the image.
 3) The image is then passed to AI model (AWS Rekognition) , which assigns the score to that image based on different factors , 
       if that image have sufficient score (i.e.Here , score means how much confidence is there that an image is actually Pothole) , then it goes into next step
@@ -34,7 +42,7 @@ The app makes use of JWT token for authentication , and from storage to user det
 > The almost similar architecture applies for both the app.
 
 - **User / Actor** : 
-  It is the frontend application build on Android
+  It is the frontend application built on Android.
   
 - **Elastic Load Balancer** : 
   Elastic Load Balancer is in front of the Server , and it manages and spreads the traffic acrros the Server.
@@ -63,7 +71,7 @@ The media files from AWS S3 are served via CloudFront CDN  , So that users may h
 
 > As you can see each component of the above architecture is higly scalable , secure and reliable , at each step JWT tokens and authentication are used to , and all the components are generally self sufficient so the arcitecture could be easily modified according to needs.
 
-Repo to components of the app:
+#### Repo to components of the app:
 - [Pothole User Android App](https://github.com/harshitshah4/PotholeUserAndroidApp)
 - [Pothole User Server (Private)](https://github.com/harshitshah4/PotholeUserServer)
 - [Pothole Civil Authority Android App](https://github.com/harshitshah4/PotholeCivilAuthorityAndroidApp)
