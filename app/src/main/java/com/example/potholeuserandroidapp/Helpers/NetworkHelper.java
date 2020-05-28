@@ -2,6 +2,7 @@ package com.example.potholeuserandroidapp.Helpers;
 
 import android.content.Context;
 
+import com.example.potholeuserandroidapp.R;
 import com.franmontiel.persistentcookiejar.ClearableCookieJar;
 import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
@@ -12,8 +13,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkHelper {
-
-    private static final String BASE_URL = "http://potholeuserserver-env.qauwqpt8az.ap-south-1.elasticbeanstalk.com/";
 
 
 
@@ -26,8 +25,9 @@ public class NetworkHelper {
                                             .cookieJar(clearableCookieJar)
                                             .build();
 
+
         Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl(BASE_URL)
+                                .baseUrl(context.getString(R.string.BASE_URL))
                                 .client(okHttpClient)
                                 .addConverterFactory(GsonConverterFactory.create())
                                 .build();

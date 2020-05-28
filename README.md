@@ -1,15 +1,14 @@
 # PotholeUserAndroidApp
 This is repository for Pothole User Android app
 
-### **I highly suggest you to first read [Detail of Pothole App](https://github.com/harshitshah4/PotholeUserAndroidApp/blob/initial_commit/POTHOLE.md)**
+### **I highly suggest you to first read [Detail of Pothole App](https://harshitshah4.github.io/project/YeTasveerKiskiHai)**
 
 This is one of the components of a complete Pothole App 
 
 The complete understanding of Pothole app could be found over here []
 
-### Links to other components : 
+### Repo Links to other components : 
 
-Repo to components of the app:
 - [Pothole User Android App (Current)](https://github.com/harshitshah4/PotholeUserAndroidApp)
 - [Pothole User Server (Private)](https://github.com/harshitshah4/PotholeUserServer)
 - [Pothole Civil Authority Android App](https://github.com/harshitshah4/PotholeCivilAuthorityAndroidApp)
@@ -34,6 +33,7 @@ This app communicates with the Node js / Express backend server , and talks to i
 Android (Java) , Retrofit , Glide , etc.
 
 ## Screenshots
-
+<img src="https://github.com/harshitshah4/PotholeUserAndroidApp/blob/initial_commit/Screenshot1.png" align="left" width="30%" height="auto" alt="Screenshot of App"/>
+<img src="https://github.com/harshitshah4/PotholeUserAndroidApp/blob/initial_commit/Screenshot2.png" width="30%" height="auto" alt="Screenshot of App"/>
 
 > There are few fixes that are needed to be done , so before using it into production make sure of some fixes.
