@@ -34,7 +34,7 @@ Android (Java) , Retrofit , Glide , etc.
 
 
 #### NOTE :
-> Replace the BASE_URL in strings , with you url.
+> Replace the BASE_URL in strings , with your server url.
 
 ## Screenshots
 <img src="https://github.com/harshitshah4/PotholeUserAndroidApp/blob/master/Screenshot1.png" align="left" width="30%" height="auto" alt="Screenshot of App"/>
