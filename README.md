@@ -32,6 +32,10 @@ This app communicates with the Node js / Express backend server , and talks to i
 
 Android (Java) , Retrofit , Glide , etc.
 
+
+#### NOTE :
+> Replace the BASE_URL in strings , with you url.
+
 ## Screenshots
 <img src="https://github.com/harshitshah4/PotholeUserAndroidApp/blob/initial_commit/Screenshot1.png" align="left" width="30%" height="auto" alt="Screenshot of App"/>
 <img src="https://github.com/harshitshah4/PotholeUserAndroidApp/blob/initial_commit/Screenshot2.png" width="30%" height="auto" alt="Screenshot of App"/>
