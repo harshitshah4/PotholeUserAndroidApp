@@ -37,7 +37,7 @@ Android (Java) , Retrofit , Glide , etc.
 > Replace the BASE_URL in strings , with you url.
 
 ## Screenshots
-<img src="https://github.com/harshitshah4/PotholeUserAndroidApp/blob/initial_commit/Screenshot1.png" align="left" width="30%" height="auto" alt="Screenshot of App"/>
-<img src="https://github.com/harshitshah4/PotholeUserAndroidApp/blob/initial_commit/Screenshot2.png" width="30%" height="auto" alt="Screenshot of App"/>
+<img src="https://github.com/harshitshah4/PotholeUserAndroidApp/blob/master/Screenshot1.png" align="left" width="30%" height="auto" alt="Screenshot of App"/>
+<img src="https://github.com/harshitshah4/PotholeUserAndroidApp/blob/master/Screenshot2.png" width="30%" height="auto" alt="Screenshot of App"/>
 
 > There are few fixes that are needed to be done , so before using it into production make sure of some fixes.
